@@ -1,6 +1,6 @@
 // main.js
 
-import sabotagePhrases from 'https://cdn.jsdelivr.net/gh/d34d1sh/commune-clicker/sabotagePhrases.js';
+import sabotagePhrases from 'sabotagePhrases.js';
 
 const BASE_FONT_SIZE = 16;
 const BUTTON_FONT_SIZE = 18;
