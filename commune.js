@@ -77,6 +77,7 @@ if (isSmallScreenPortrait()) {
         type: Phaser.AUTO,
         width: window.innerWidth,
         height: window.innerHeight,
+        parent: document.body,
         backgroundColor: 0x000000,
         scene: {
             create: create,
@@ -437,8 +438,10 @@ if (isSmallScreenPortrait()) {
     // Listen for window resize, then reposition UI instead of re-creating it
     window.addEventListener('resize', () => {
         game.scale.resize(window.innerWidth, window.innerHeight);
-        repositionUI(game.scene.scenes[0]);
+        game.canvas.style.width = window.innerWidth + 'px';
+        game.canvas.style.height = window.innerHeight + 'px';
     });
+
 
     function repositionUI(scene) {        
         // Adjust FONT_SCALE based on new canvas size
