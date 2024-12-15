@@ -547,7 +547,6 @@ if (isSmallScreenPortrait()) {
             {
                 font: `${fontSize}px Menlo`,
                 fill: '#ff0000',
-                wordWrap: { width: this.sys.game.canvas.width * 0.95 },
                 align: 'left'
             }
         );
