@@ -550,6 +550,7 @@ if (isSmallScreenPortrait()) {
                 align: 'left'
             }
         );
+        asciiTitle.setScale(1, 1);
         uiContainer.add(asciiTitle);
     }
 
