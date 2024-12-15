@@ -112,7 +112,7 @@ if (isSmallScreenPortrait()) {
     let autoplayEnabled = false;
     let autoplayCooldown = 1000; // 1 sec
     let lastAutoplayTime = 0;
-    const maxLogMessages = 12;
+    const maxLogMessages = 10;
 
     const difficultySettings = {
         ANARCHY: {
@@ -550,7 +550,7 @@ if (isSmallScreenPortrait()) {
                 align: 'left'
             }
         );
-        asciiTitle.setScale(.8, 1);
+        asciiTitle.setScale(1, 1);
         uiContainer.add(asciiTitle);
     }
 
@@ -704,8 +704,8 @@ if (isSmallScreenPortrait()) {
 
         // Log Text - Positioned at Bottom Right
         logText = scene.add.text(
-            scene.sys.game.canvas.width * (1 - padding),
-            scene.sys.game.canvas.height * 7 / 12,
+            asciiTitle.getBounds().right - scene.sys.game.canvas.width * 0.02,
+            asciiTitle.getBounds().bottom + scene.sys.game.canvas.height * 0.175,
             '',
             {
                 font: `${fontSize}px Courier`,
