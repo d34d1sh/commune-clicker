@@ -452,7 +452,7 @@ if (isSmallScreenPortrait()) {
         const newFontSize = Math.max(BASE_FONT_SIZE * FONT_SCALE, MIN_FONT_SIZE);
         const newButtonFontSize = Math.max(BUTTON_FONT_SIZE * FONT_SCALE, MIN_FONT_SIZE);
 
-        const padding = 0.05; // 2.5% padding
+        const padding = 0.025; // 2.5% padding
         const maxWidth = scene.sys.game.canvas.width * 0.95; // 95% of canvas width
 
         // ASCII Title
@@ -570,7 +570,7 @@ if (isSmallScreenPortrait()) {
         uiContainer.add(difficultyPrompt);
 
         // Button vertical spacing factor
-        const buttonSpacing = 0.05; // 5% of canvas height
+        const buttonSpacing = 0.035; // 3.5% of canvas height
 
         // Anarchy Button
         anarchyButton = this.add.text(
@@ -655,7 +655,7 @@ if (isSmallScreenPortrait()) {
             }
         );
         uiContainer.add(antagonismText);
-        yOffset += antagonismText.height + scene.sys.game.canvas.height * 0.01; // 1% spacing
+        yOffset += antagonismText.height + scene.sys.game.canvas.height * 0.005; // 1% spacing
 
         // Sabotage Text
         sabotageText = scene.add.text(
@@ -672,7 +672,7 @@ if (isSmallScreenPortrait()) {
 
         // Capitalism Element Health Bars
         healthBars = {};
-        const healthBarSpacing = scene.sys.game.canvas.height * 0.015; // 1.5% spacing
+        const healthBarSpacing = scene.sys.game.canvas.height * 0.005; // 1.5% spacing
         for (let elem in capitalismElements) {
             healthBars[elem] = scene.add.text(
                 scene.sys.game.canvas.width * padding,
@@ -699,7 +699,7 @@ if (isSmallScreenPortrait()) {
             }
         );
         uiContainer.add(comboText);
-        yOffset += comboText.height + scene.sys.game.canvas.height * 0.02; // 2% spacing
+        yOffset += comboText.height + scene.sys.game.canvas.height * 0.01; // 2% spacing
 
         // Log Text - Positioned at Bottom Right
         logText = scene.add.text(
@@ -724,7 +724,7 @@ if (isSmallScreenPortrait()) {
         uiContainer.add(buttonsContainer);
 
         // Add vertical spacing
-        const buttonSpacingFactor = 0.02; // 2% spacing
+        const buttonSpacingFactor = 0.00; // 0% spacing
         const spacing = scene.sys.game.canvas.height * buttonSpacingFactor;
 
         // Commit Sabotage Button - Positioned First in Buttons Container
