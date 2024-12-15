@@ -704,7 +704,7 @@ if (isSmallScreenPortrait()) {
 
         // Log Text - Positioned at Bottom Right
         logText = scene.add.text(
-            asciiTitle.getBounds().right - scene.sys.game.canvas.width * 0.02,
+            asciiTitle.getBounds().right,
             asciiTitle.getBounds().bottom + scene.sys.game.canvas.height * 0.175,
             '',
             {
