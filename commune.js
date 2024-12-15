@@ -444,7 +444,7 @@ if (isSmallScreenPortrait()) {
         repositionUI(game.scene.scenes[0]);
     });
 
-    function repositionUI(scene) {
+    function repositionUI(scene) {        
         // Adjust FONT_SCALE based on new canvas size
         updateFontScale(scene.sys.game.canvas.width, scene.sys.game.canvas.height);
 
@@ -452,7 +452,7 @@ if (isSmallScreenPortrait()) {
         const newFontSize = Math.max(BASE_FONT_SIZE * FONT_SCALE, MIN_FONT_SIZE);
         const newButtonFontSize = Math.max(BUTTON_FONT_SIZE * FONT_SCALE, MIN_FONT_SIZE);
 
-        const padding = 0.025; // 2.5% padding
+        const padding = 0.05; // 2.5% padding
         const maxWidth = scene.sys.game.canvas.width * 0.95; // 95% of canvas width
 
         // ASCII Title
