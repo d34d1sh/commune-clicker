@@ -155,7 +155,7 @@ if (isSmallScreenPortrait()) {
     function updateFontScale(width, height) {
         const baseWidth = 800;
         const baseHeight = 600;
-        FONT_SCALE = Math.min(width / baseWidth, height / baseHeight);
+        FONT_SCALE = Math.min(width / baseWidth, height / baseHeight, 1.0);
     }
 
     // Function to update the "Commit Sabotage" button's state
