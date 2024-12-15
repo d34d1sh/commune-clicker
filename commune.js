@@ -73,7 +73,6 @@ if (isSmallScreenPortrait()) {
 } else {
     // **2. Initialize Phaser Game for Suitable Screens**
 
-    // Phaser config
     const config = {
         type: Phaser.AUTO,
         width: window.innerWidth,
@@ -95,7 +94,6 @@ if (isSmallScreenPortrait()) {
     // **Global Variables**
     let asciiTitle, difficultyPrompt;
     let anarchyButton, insurrectionButton, revolutionButton;
-
     let difficulty = 'INSURRECTION'; // default difficulty
     let capitalismElements = {};
     let antagonism = 0;
@@ -111,11 +109,9 @@ if (isSmallScreenPortrait()) {
     let comboCount = 0;
     let comboMultiplier = 1.0;
     let comboTimeout;
-
     let autoplayEnabled = false;
     let autoplayCooldown = 1000; // 1 sec
     let lastAutoplayTime = 0;
-
     const maxLogMessages = 12;
 
     const difficultySettings = {
@@ -155,7 +151,7 @@ if (isSmallScreenPortrait()) {
     function updateFontScale(width, height) {
         const baseWidth = 800;
         const baseHeight = 600;
-        FONT_SCALE = Math.min(width / baseWidth, height / baseHeight, 1.0);
+        FONT_SCALE = Math.min(width / baseWidth, height / baseHeight, 2.0);
     }
 
     // Function to update the "Commit Sabotage" button's state
@@ -472,8 +468,8 @@ if (isSmallScreenPortrait()) {
             // Recalculate buttons' positions based on new canvas size
             buttonsContainer.list.forEach((button, index) => {
                 button.setFont(`${newButtonFontSize}px Courier`);
-                button.setPosition(0, index * (button.height + scene.sys.game.canvas.height * 0.02)); // 2% spacing
-                button.setWordWrap({ width: maxWidth - scene.sys.game.canvas.width * 0.05 }); // Adjust wordWrap if necessary
+                button.setPosition(0, index * (button.height + scene.sys.game.canvas.height * 0.02)); 
+                button.setWordWrap({ width: maxWidth - scene.sys.game.canvas.width * 0.05 });
             });
         }
 
@@ -491,7 +487,7 @@ if (isSmallScreenPortrait()) {
         // Reposition Health Bars
         if (healthBars) {
             let yOffset = sabotageText.getBounds().bottom + scene.sys.game.canvas.height * 0.02;
-            const healthBarSpacing = scene.sys.game.canvas.height * 0.015; // 1.5% spacing
+            const healthBarSpacing = scene.sys.game.canvas.height * 0.015;
             for (let elem in healthBars) {
                 healthBars[elem].setFont(`${newFontSize}px Courier`);
                 healthBars[elem].setPosition(scene.sys.game.canvas.width * padding, yOffset);
@@ -506,18 +502,22 @@ if (isSmallScreenPortrait()) {
             comboText.setPosition(scene.sys.game.canvas.width * padding, sabotageText.getBounds().bottom + scene.sys.game.canvas.height * 0.02);
         }
 
-        // Reposition Log Text to Bottom Right
+        // Reposition Log Text
         if (logText) {
+            const padding = scene.sys.game.canvas.width * 0.025;
+            const logX = scene.sys.game.canvas.width - padding;
+            const logY = scene.sys.game.canvas.height * 0.6;
+
             logText.setFont(`${newFontSize}px Courier`);
-            logText.setWordWrap({ width: maxWidth });
-            logText.setPosition(scene.sys.game.canvas.width * (1 - padding), scene.sys.game.canvas.height * (1 - padding));
-            logText.setOrigin(1, 1); // Ensure origin is bottom right
+            logText.setWordWrapWidth(scene.sys.game.canvas.width * 0.4);
+            logText.setPosition(logX, logY);
+            logText.setOrigin(1, 0); // Right alignment
         }
 
         // Reposition Countdown Text
         if (countdownText) {
             countdownText.setFont(`${Math.max(48 * FONT_SCALE, 24)}px Courier`);
-            countdownText.setPosition(scene.sys.game.canvas.width / 2, logText.getBounds().top - 100); // Position above the log
+            countdownText.setPosition(scene.sys.game.canvas.width / 2, logText.getBounds().top - 100);
         }
 
         // Reposition Phrase Text
@@ -534,8 +534,8 @@ if (isSmallScreenPortrait()) {
         const padding = 0.025; // 2.5% padding
         const fontSize = Math.max(BASE_FONT_SIZE * FONT_SCALE, MIN_FONT_SIZE);
         asciiTitle = this.add.text(
-            this.sys.game.canvas.width * padding, // Left-aligned with percentage padding
-            this.sys.game.canvas.height * 0.01, // 1% from top
+            this.sys.game.canvas.width * padding,
+            this.sys.game.canvas.height * 0.01,
             `
         ▄█▄    ████▄ █▀▄▀█ █▀▄▀█   ▄      ▄   ▄███▄       ▄█▄    █     ▄█ ▄█▄    █  █▀ ▄███▄   █▄▄▄▄ 
         █▀ ▀▄  █   █ █ █ █ █ █ █    █      █  █▀   ▀      █▀ ▀▄  █     ██ █▀ ▀▄  █▄█   █▀   ▀  █  ▄▀ 
@@ -543,7 +543,7 @@ if (isSmallScreenPortrait()) {
         █▄  ▄▀ ▀████ █   █ █   █ █   █ █ █  █ █▄   ▄▀     █▄  ▄▀ ███▄  ▐█ █▄  ▄▀ █  █  █▄   ▄▀ █  █  
         ▀███▀           █     █  █▄ ▄█ █  █ █ ▀███▀       ▀███▀      ▀  ▐ ▀███▀    █   ▀███▀     █   
                            ▀     ▀    ▀▀▀  █   ██                                     ▀             ▀    
-        `,
+            `,
             {
                 font: `${fontSize}px Menlo`,
                 fill: '#ff0000',
@@ -559,7 +559,7 @@ if (isSmallScreenPortrait()) {
 
         // Position difficulty prompt below ASCII title
         const titleBounds = asciiTitle.getBounds();
-        const promptY = titleBounds.bottom + this.sys.game.canvas.height * 0.02; // 2% spacing
+        const promptY = titleBounds.bottom + this.sys.game.canvas.height * 0.02;
 
         difficultyPrompt = this.add.text(
             this.sys.game.canvas.width * padding,
@@ -570,7 +570,7 @@ if (isSmallScreenPortrait()) {
         uiContainer.add(difficultyPrompt);
 
         // Button vertical spacing factor
-        const buttonSpacing = 0.035; // 3.5% of canvas height
+        const buttonSpacing = 0.035;
 
         // Anarchy Button
         anarchyButton = this.add.text(
@@ -635,14 +635,14 @@ if (isSmallScreenPortrait()) {
     }
 
     function createGameUI(scene) {
-        const padding = 0.025; // 2.5% padding
+        const padding = 0.025;
         const fontSize = Math.max(BASE_FONT_SIZE * FONT_SCALE, MIN_FONT_SIZE);
         const buttonFontSize = Math.max(BUTTON_FONT_SIZE * FONT_SCALE, MIN_FONT_SIZE);
-        const maxWidth = scene.sys.game.canvas.width * 0.95; // 95% of canvas width
+        const maxWidth = scene.sys.game.canvas.width * 0.95;
 
         // Start Y offset below the ASCII title and difficulty UI
         const titleBounds = asciiTitle.getBounds();
-        let yOffset = titleBounds.bottom + scene.sys.game.canvas.height * 0.02; // 2% spacing
+        let yOffset = titleBounds.bottom + scene.sys.game.canvas.height * 0.02;
 
         // Antagonism Text
         antagonismText = scene.add.text(
@@ -655,7 +655,7 @@ if (isSmallScreenPortrait()) {
             }
         );
         uiContainer.add(antagonismText);
-        yOffset += antagonismText.height + scene.sys.game.canvas.height * 0.005; // 1% spacing
+        yOffset += antagonismText.height + scene.sys.game.canvas.height * 0.005;
 
         // Sabotage Text
         sabotageText = scene.add.text(
@@ -668,11 +668,11 @@ if (isSmallScreenPortrait()) {
             }
         );
         uiContainer.add(sabotageText);
-        yOffset += sabotageText.height + scene.sys.game.canvas.height * 0.02; // 2% spacing
+        yOffset += sabotageText.height + scene.sys.game.canvas.height * 0.02;
 
         // Capitalism Element Health Bars
         healthBars = {};
-        const healthBarSpacing = scene.sys.game.canvas.height * 0.005; // 1.5% spacing
+        const healthBarSpacing = scene.sys.game.canvas.height * 0.005;
         for (let elem in capitalismElements) {
             healthBars[elem] = scene.add.text(
                 scene.sys.game.canvas.width * padding,
@@ -699,22 +699,21 @@ if (isSmallScreenPortrait()) {
             }
         );
         uiContainer.add(comboText);
-        yOffset += comboText.height + scene.sys.game.canvas.height * 0.01; // 2% spacing
+        yOffset += comboText.height + scene.sys.game.canvas.height * 0.01;
 
         // Log Text - Positioned at Bottom Right
         logText = scene.add.text(
-            scene.sys.game.canvas.width * (1 - padding), // X Position: Right side with padding
-            scene.sys.game.canvas.height * 7 / 12, // Y Position: middle
+            scene.sys.game.canvas.width * (1 - padding),
+            scene.sys.game.canvas.height * 7 / 12,
             '',
             {
                 font: `${fontSize}px Courier`,
                 fill: '#cccccc',
                 wordWrap: { width: maxWidth },
-                align: 'right' // Align text to the right
+                align: 'right'
             }
-        ).setOrigin(1, 0); // Set origin to bottom right
+        ).setOrigin(1, 0);
         uiContainer.add(logText);
-        // No yOffset increment needed since log is absolutely positioned
 
         // Buttons Container
         buttonsContainer = scene.add.container(
@@ -723,13 +722,12 @@ if (isSmallScreenPortrait()) {
         );
         uiContainer.add(buttonsContainer);
 
-        // Add vertical spacing
-        const buttonSpacingFactor = 0.00; // 0% spacing
+        const buttonSpacingFactor = 0.00;
         const spacing = scene.sys.game.canvas.height * buttonSpacingFactor;
 
-        // Commit Sabotage Button - Positioned First in Buttons Container
+        // Commit Sabotage Button
         commitSabotageButton = scene.add.text(
-            0, // Relative to buttonsContainer
+            0,
             0,
             '[COMMIT SABOTAGE]',
             {
@@ -737,7 +735,7 @@ if (isSmallScreenPortrait()) {
                 fill: '#00ff00',
                 backgroundColor: '#333333',
                 padding: { x: 10, y: 5 },
-                wordWrap: { width: maxWidth - scene.sys.game.canvas.width * 0.05 } // Prevent overflow
+                wordWrap: { width: maxWidth - scene.sys.game.canvas.width * 0.05 }
             }
         ).setInteractive({ useHandCursor: true });
         commitSabotageButton.on('pointerdown', () => {
@@ -745,17 +743,17 @@ if (isSmallScreenPortrait()) {
         });
         buttonsContainer.add(commitSabotageButton);
 
-        // Upgrade Button - Positioned Below Commit Sabotage
+        // Upgrade Button
         const upgradeButton = scene.add.text(
             0,
-            commitSabotageButton.height + spacing, // 2% spacing below Commit Sabotage
+            commitSabotageButton.height + spacing,
             '[BUY UPGRADE: WILDCAT STRIKES]',
             {
                 font: `${buttonFontSize}px Courier`,
                 fill: '#ff0000',
                 backgroundColor: '#333333',
                 padding: { x: 10, y: 5 },
-                wordWrap: { width: maxWidth - scene.sys.game.canvas.width * 0.05 } // Prevent overflow
+                wordWrap: { width: maxWidth - scene.sys.game.canvas.width * 0.05 }
             }
         ).setInteractive({ useHandCursor: true });
         upgradeButton.on('pointerdown', () => {
@@ -765,7 +763,6 @@ if (isSmallScreenPortrait()) {
                 addLogMessage('Upgrade Purchased: Wildcat Strikes! Autoplay cooldown reduced.');
                 antagonismText.setText(`ANTAGONISM: ${antagonism}`);
                 upgradeButton.destroy();
-                // Optionally, update the Commit Sabotage button if necessary
                 updateCommitSabotageButton();
             } else {
                 addLogMessage('ERROR: Not enough Antagonism to purchase upgrade.');
@@ -773,50 +770,50 @@ if (isSmallScreenPortrait()) {
         });
         buttonsContainer.add(upgradeButton);
 
-        // Autoplay Button - Positioned Below Upgrade Button
+        // Autoplay Button
         const autoplayButton = scene.add.text(
             0,
-            commitSabotageButton.height + spacing + upgradeButton.height + spacing, // Cumulative spacing below Upgrade Button
+            commitSabotageButton.height + spacing + upgradeButton.height + spacing,
             '[TOGGLE AUTOPLAY]',
             {
                 font: `${buttonFontSize}px Courier`,
                 fill: '#ff0000',
                 backgroundColor: '#333333',
                 padding: { x: 10, y: 5 },
-                wordWrap: { width: maxWidth - scene.sys.game.canvas.width * 0.05 } // Prevent overflow
+                wordWrap: { width: maxWidth - scene.sys.game.canvas.width * 0.05 }
             }
         ).setInteractive({ useHandCursor: true });
         autoplayButton.on('pointerdown', toggleAutoplay.bind(scene));
         buttonsContainer.add(autoplayButton);
 
-        // Update Commit Sabotage Button state based on current antagonism
+        // Update Commit Sabotage Button state
         updateCommitSabotageButton();
 
-        // Phrase Text - Positioned Aligned with the Right Edge of the ASCII Title
+        // Phrase Text - Right-aligned to the ASCII Title
         phraseText = scene.add.text(
-            asciiTitle.getBounds().right - scene.sys.game.canvas.width * 0.02, // X Position: Right edge minus padding
-            asciiTitle.getBounds().bottom + scene.sys.game.canvas.height * 0.01, // Y Position: Below ASCII Title
+            asciiTitle.getBounds().right - scene.sys.game.canvas.width * 0.02,
+            asciiTitle.getBounds().bottom + scene.sys.game.canvas.height * 0.01,
             '',
             {
                 font: `${Math.max(14 * FONT_SCALE, 12)}px Courier`,
                 fill: '#ffcc00',
-                wordWrap: { width: Math.min(600, maxWidth - scene.sys.game.canvas.width * 0.05) } // Increased wordWrap width
+                wordWrap: { width: Math.min(600, maxWidth - scene.sys.game.canvas.width * 0.05) }
             }
-        ).setOrigin(1, 0); // Right-aligned
+        ).setOrigin(1, 0);
         uiContainer.add(phraseText);
 
-        // Countdown Text - Positioned Centrally Above the Log
+        // Countdown Text - Centered above log
         countdownText = scene.add.text(
             scene.sys.game.canvas.width / 2,
-            logText.getBounds().top - 100, // Y Position: 100px above the top of the log
+            logText.getBounds().top - 100,
             '',
             {
                 font: `${Math.max(48 * FONT_SCALE, 24)}px Courier`,
                 fill: '#ff0000',
                 align: 'center'
             }
-        ).setOrigin(0.5, 0); // Center horizontally
-        countdownText.setVisible(false); // Initially hidden
+        ).setOrigin(0.5, 0);
+        countdownText.setVisible(false);
         uiContainer.add(countdownText);
     }
 
@@ -840,5 +837,4 @@ if (isSmallScreenPortrait()) {
             loop: true
         });
     }
-
 }
