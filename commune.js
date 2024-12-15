@@ -705,7 +705,7 @@ if (isSmallScreenPortrait()) {
         // Log Text - Positioned at Bottom Right
         logText = scene.add.text(
             scene.sys.game.canvas.width * (1 - padding), // X Position: Right side with padding
-            scene.sys.game.canvas.height * (1 - padding), // Y Position: Bottom with padding
+            scene.sys.game.canvas.height * 7 / 12, // Y Position: middle
             '',
             {
                 font: `${fontSize}px Courier`,
@@ -713,7 +713,7 @@ if (isSmallScreenPortrait()) {
                 wordWrap: { width: maxWidth },
                 align: 'right' // Align text to the right
             }
-        ).setOrigin(1, 1); // Set origin to bottom right
+        ).setOrigin(1, 0); // Set origin to bottom right
         uiContainer.add(logText);
         // No yOffset increment needed since log is absolutely positioned
 
