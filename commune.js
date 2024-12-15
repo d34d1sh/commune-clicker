@@ -11,7 +11,7 @@ let FONT_SCALE = 1.0;
 
 // Function to check if the screen is small and in portrait mode
 function isSmallScreenPortrait() {
-    return window.innerWidth < 600 && window.innerHeight > window.innerWidth;
+    return window.innerWidth < 900 && window.innerHeight > window.innerWidth;
 }
 
 if (isSmallScreenPortrait()) {
@@ -528,7 +528,7 @@ if (isSmallScreenPortrait()) {
             phraseText.setFont(`${Math.max(14 * FONT_SCALE, 12)}px Courier`);
             const asciiBounds = asciiTitle.getBounds();
             const asciiRight = asciiBounds.right;
-            phraseText.setPosition(asciiRight - scene.sys.game.canvas.width * 0.02, asciiBounds.bottom + scene.sys.game.canvas.height * 0.01);
+            phraseText.setPosition(asciiRight - scene.sys.game.canvas.width * 0.2, asciiBounds.bottom + scene.sys.game.canvas.height * 0.01);
             phraseText.setWordWrap({ width: Math.min(600, maxWidth - scene.sys.game.canvas.width * 0.05) });
         }
     }
@@ -707,7 +707,7 @@ if (isSmallScreenPortrait()) {
 
         // Log Text - Positioned at Bottom Right
         logText = scene.add.text(
-            asciiTitle.getBounds().right,
+            asciiTitle.getBounds().right - scene.sys.game.canvas.width * 0.1,
             asciiTitle.getBounds().bottom + scene.sys.game.canvas.height * 0.175,
             '',
             {
@@ -795,7 +795,7 @@ if (isSmallScreenPortrait()) {
 
         // Phrase Text - Right-aligned to the ASCII Title
         phraseText = scene.add.text(
-            asciiTitle.getBounds().right - scene.sys.game.canvas.width * 0.02,
+            asciiTitle.getBounds().right - scene.sys.game.canvas.width * 0.1,
             asciiTitle.getBounds().bottom + scene.sys.game.canvas.height * 0.01,
             '',
             {
