@@ -1,6 +1,6 @@
-// main.js
+// commune.js
 
-// import sabotagePhrases from 'sabotagePhrases.js';
+import sabotagePhrases from './sabotagePhrases.js';
 
 const BASE_FONT_SIZE = 16;
 const BUTTON_FONT_SIZE = 18;
@@ -301,7 +301,7 @@ if (isSmallScreenPortrait()) {
             if (!healthBars[element]) continue;
 
             const value = capitalismElements[element];
-            healthBars[element].setText(`${element}: ${value}`);
+            healthBars[element].setText(`${element}`);
             healthBars[element].setFill(getColorForValue(value));
 
             // Handle strikethrough if value <= 0
