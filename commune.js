@@ -534,8 +534,8 @@ if (isSmallScreenPortrait()) {
         const padding = 0.025; // 2.5% padding
         const fontSize = Math.max(BASE_FONT_SIZE * FONT_SCALE, MIN_FONT_SIZE);
         asciiTitle = this.add.text(
-            this.sys.game.canvas.width * padding,
-            this.sys.game.canvas.height * 0.01,
+            0,
+            0,
             `
         ▄█▄    ████▄ █▀▄▀█ █▀▄▀█   ▄      ▄   ▄███▄       ▄█▄    █     ▄█ ▄█▄    █  █▀ ▄███▄   █▄▄▄▄ 
         █▀ ▀▄  █   █ █ █ █ █ █ █    █      █  █▀   ▀      █▀ ▀▄  █     ██ █▀ ▀▄  █▄█   █▀   ▀  █  ▄▀ 
